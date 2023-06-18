@@ -11,7 +11,7 @@ export default async function handler(
 ) {
   const { question, history } = req.body;
 
-  console.log('question', question);
+  // console.log('question', question);
 
   //only accept post requests
   if (req.method !== 'POST') {
@@ -40,16 +40,17 @@ export default async function handler(
 
     //create chain
     const chain = makeChain(vectorStore);
+    // console.log('chain', Object.keys(await chain));
     //Ask a question using chat history
+    const callbacks = [()=> {console.log('callback1')}, ()=> {console.log('callback2')}]
     const response = await chain.call({
       question: sanitizedQuestion,
       chat_history: history || [],
-    });
-
-    console.log('response', response);
+    }, callbacks[0] as any);
+    
     res.status(200).json(response);
   } catch (error: any) {
-    console.log('error', error);
+    // console.log('error', Object.keys(error));
     res.status(500).json({ error: error.message || 'Something went wrong' });
   }
 }

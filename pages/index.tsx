@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/accordion';
 
 export default function Home() {
-  const [query, setQuery] = useState<string>('');
+  const [query, setQuery] = useState<string>('What is a 1040 form?');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [messageState, setMessageState] = useState<{
@@ -66,7 +66,7 @@ export default function Home() {
     }));
 
     setLoading(true);
-    setQuery('');
+    // setQuery('');
 
     try {
       const response = await fetch('/api/chat', {
@@ -165,8 +165,8 @@ export default function Home() {
                         : styles.usermessage;
                   }
                   return (
-                    <>
-                      <div key={`chatMessage-${index}`} className={className}>
+                    <div key={`chatMessage-${index}`}>
+                      <div  className={className}>
                         {icon}
                         <div className={styles.markdownanswer}>
                           <ReactMarkdown linkTarget="_blank">
@@ -204,7 +204,7 @@ export default function Home() {
                           </Accordion>
                         </div>
                       )}
-                    </>
+                    </div>
                   );
                 })}
               </div>
